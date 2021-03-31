@@ -31,7 +31,11 @@ const privacyAccessibilityLink = document.getElementById('privacyAccessibilityLi
 const privacyModalExitButton = document.getElementById('privacy-modal-exit-button')
 const privacyModalAccessibilityExitButton = document.getElementById('privacy-modal-accessibility-exit-button')
 
-const contactBarFooter = document.getElementById('contact-bar-footer')
+const contactBarFooter = document.getElementById('contact-bar-footer');
+
+const dropDownListContainer = document.getElementById('drop-down-container')
+const dropDownList = document.getElementById('drop-down-inner')
+const navItemToBeMove = document.getElementById('navigation-bar-item-afterCareers')
 
 
 const openMobileMenu = (e) => {
@@ -44,6 +48,9 @@ const openMobileMenu = (e) => {
     navigationBar.classList.toggle("navigation-bar");
     navigationBarContainer.classList.toggle("navigation-bar-container-mobile");
     navigationBarContainer.classList.toggle("navigation-bar-container");
+    navigationBar.classList.remove('increase-nav-height')
+    if (dropDownList.className.includes('open-drop-down-inner-menu') && navigationBar.className.includes("navigation-bar-mobile"))
+        navigationBar.classList.add('increase-nav-height')
 }
 
 if (deviceWidth > 925) {
@@ -57,42 +64,49 @@ if (deviceWidth > 925) {
 else {
     howitworksBoxes.forEach((box, index) => {
         box.addEventListener('click', (e) => {
-            setTimeout(() => {
-                howItWorksTexts[index].classList.toggle("none");
-                howItWorksTexts[index].classList.toggle("close");
-            }, 0);
-            howItWorksTexts[index].classList.toggle("open-translate");
-        })
-    })
-    QAquestionsContainers.forEach((question, index) => {
-        question.addEventListener('click', (e) => {
-            QAanswersContainers[index].classList.toggle("none");
-            QAanswersContainers[index].classList.toggle("close");
-            QAarrowDown[index].classList.toggle('none');
-            QAarrowDown[index].classList.toggle('inline-block');
-            QAarrowUp[index].classList.toggle('none');
-            QAarrowUp[index].classList.toggle('inline-block');
-
-        })
-    })
-    publicQAquestionsContainers.forEach((question, index) => {
-        question.addEventListener('click', (e) => {
-            publicQAanswersContainers[index].classList.toggle("none");
-            publicQAanswersContainers[index].classList.toggle("close");
-            QAarrowDown[index].classList.toggle('none');
-            QAarrowDown[index].classList.toggle('inline-block');
-            QAarrowUp[index].classList.toggle('none');
-            QAarrowUp[index].classList.toggle('inline-block');
-
+            howItWorksTexts[index].classList.toggle("show");
         })
     })
     mobileMenuButton.addEventListener('click', openMobileMenu)
 }
+if (deviceWidth > 450) {
+    modal.style.display = 'block'
+    setTimeout(() => {
+        modal.classList.add('open-modal')
+    }, 15000);
+}
+else
+    modal.style.display = 'none'
+
+
+
+//-----------------questions-opens-------------------
+QAquestionsContainers.forEach((question, index) => {
+    question.addEventListener('click', (e) => {
+        QAanswersContainers[index].classList.toggle("show");
+        QAarrowDown[index].classList.toggle('none');
+        QAarrowDown[index].classList.toggle('inline-block');
+        QAarrowUp[index].classList.toggle('none');
+        QAarrowUp[index].classList.toggle('inline-block');
+
+    })
+})
+publicQAquestionsContainers.forEach((question, index) => {
+    question.addEventListener('click', (e) => {
+        publicQAanswersContainers[index].classList.toggle("show");
+        QAarrowDown[index].classList.toggle('none');
+        QAarrowDown[index].classList.toggle('inline-block');
+        QAarrowUp[index].classList.toggle('none');
+        QAarrowUp[index].classList.toggle('inline-block');
+
+    })
+})
 
 //----------------- modals- exit button ---------------------
+
 exitButtonModal.addEventListener('click', (event) => {
     event.preventDefault()
-    modal.style.display = 'none'
+    modal.classList.remove('open-modal')
 })
 usersPrivacyLink.addEventListener('click', () => {
     privacyModal.removeAttribute('hidden')
@@ -129,4 +143,32 @@ window.addEventListener("scroll", () => {
     lastScroll = currentScroll;
 });
 
+//---------------------drop down hover--------------
+if (deviceWidth > 925) {
+    dropDownListContainer.addEventListener('mouseover', (e) => {
+        e.preventDefault();
+        dropDownList.className = 'drop-down-inner-menu open-drop-down-inner-menu'
+    })
+    dropDownListContainer.addEventListener('mouseleave', (e) => {
+        e.preventDefault();
+        dropDownList.className = 'drop-down-inner-menu';
+    })
+    dropDownList.addEventListener('mouseover', (e) => {
+        e.preventDefault();
+        dropDownList.className = 'drop-down-inner-menu open-drop-down-inner-menu'
+    })
+    dropDownList.addEventListener('mouseleave', (e) => {
+        e.preventDefault();
+        dropDownList.className = 'drop-down-inner-menu';
+    })
+}
+else {
+    dropDownListContainer.addEventListener('click', (e) => {
+        e.preventDefault();
+        dropDownList.classList.toggle('open-drop-down-inner-menu')
+        navItemToBeMove.classList.toggle('drop-down-opened')
+        navigationBar.classList.toggle('increase-nav-height')
+        body.classList.add(scrollUp);
+    })
+}
 

@@ -9,6 +9,10 @@
     opacity: 1;
   }
 }
+:root {
+  --navHeight:36rem ;
+}
+
 body {
   margin: 0;
   overflow-x: hidden;
@@ -46,17 +50,9 @@ body {
 
 .navigation-bar-mobile {
   width: 100%;
-  height: 85%;
-  position: relative;
-  top: 0;
+  height: 36rem;
   display: flex;
-  flex-flow: row;
   justify-content: center;
-  align-content: center;
-  vertical-align: middle;
-  align-self: flex-end;
-  background: #fff;
-  z-index: 100;
 }
 
 .navigation-bar-container-mobile {
@@ -109,14 +105,13 @@ body {
 
 .navigation-bar {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   width: 100%;
   height: 53px;
 }
 .navigation-bar a {
   height: fit-content;
-  position: absolute;
-  right: 0;
+  vertical-align: super;
 }
 
 .mobile-menu-button {
@@ -195,7 +190,7 @@ body {
   right: 0;
   width: 100vw;
   height: 100vh;
-  padding: 3rem 0;
+  padding: 1rem 0;
   background: rgba(0, 0, 0, 0.4);
   z-index: 10;
 }
@@ -209,6 +204,7 @@ body {
   background: url(https://www.hyperactive.co.il/static/media/modal-bg.76e0ddc9.jpg);
   background-size: cover;
   background-position: center;
+  flex-shrink: 0;
 }
 .main-page-container .main-modal .main-modal-circle .modal-close-button {
   text-align: center;
@@ -403,7 +399,14 @@ body {
 }
 
 .QA-answer, .publicQA-answer {
-  padding-bottom: 1rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+}
+
+.show {
+  max-height: 800px !important;
+  margin-bottom: 15px;
 }
 
 .main-QA {
@@ -418,9 +421,7 @@ body {
 }
 .main-QA .QA-question-container {
   padding: 0 10px;
-  border: 0.5px solid #dbdbdb;
-  border-right: none;
-  border-left: none;
+  border-top: 0.5px solid #dbdbdb;
   width: 100%;
 }
 .main-QA .QA-question-container .question {
@@ -446,9 +447,7 @@ body {
 }
 .main-publicQA .publicQA-container {
   padding: 0 10px;
-  border: 0.5px solid #dbdbdb;
-  border-right: none;
-  border-left: none;
+  border-top: 0.5px solid #dbdbdb;
   width: 100%;
 }
 .main-publicQA .publicQA-container .publicQA-question {
@@ -573,7 +572,7 @@ body {
   height: 60px;
   position: fixed;
   bottom: 0;
-  z-index: 2;
+  z-index: 9;
   transition: transform 0.1s linear;
 }
 .contact-bar-footer .contact-btn {
@@ -733,11 +732,6 @@ body {
   font-weight: 400;
   font-size: 1rem;
 }
-.navigation-bar-item .splitter:hover {
-  color: #213b7f;
-  font-size: 1.1rem;
-  font-weight: 700;
-}
 .navigation-bar-item .splitter::after {
   content: "|";
   font-size: 1.5rem;
@@ -849,9 +843,70 @@ body {
   display: inline-block;
 }
 
+.whatsapp-connect {
+  display: none;
+}
+
+.category-inner-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+}
+
+.drop-down-inner-menu {
+  display: none;
+}
+
+.open-drop-down-inner-menu {
+  z-index: 123;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+  direction: rtl;
+  flex-wrap: wrap;
+  color: #aad6be;
+  align-items: center;
+  margin-right: 1rem;
+}
+.open-drop-down-inner-menu a {
+  display: block;
+  padding: 10px;
+  position: relative;
+  width: 100vw;
+  font-size: 1.2rem;
+  margin: 10px 0;
+  color: #000 !important;
+  border-bottom: 1px dashed #aad6be;
+}
+.open-drop-down-inner-menu a:hover {
+  color: #fff;
+}
+
+.drop-down-opened {
+  margin-top: 30rem;
+}
+
+.increase-nav-height {
+  height: 69rem;
+}
+
 @media (min-width: 450px) {
+  .open-modal {
+    transform: translateY(0) !important;
+  }
+
+  .wrapper-main-container {
+    width: 90vw;
+    margin: auto;
+  }
+
+  .whatsapp-connect {
+    display: none;
+  }
+
   .main-page-container .main-modal {
-    display: block;
+    transform: translateY(-110vh);
+    transition: all 0.5s ease-out;
   }
 
   .courses-container {
@@ -1038,6 +1093,85 @@ body {
   }
 }
 @media (min-width: 925px) {
+  #drop-down-container:hover {
+    cursor: context-menu;
+  }
+
+  .splitter:hover {
+    color: #213b7f;
+    font-weight: 700;
+  }
+
+  .drop-down-inner-menu {
+    display: none;
+  }
+
+  .open-drop-down-inner-menu {
+    justify-content: start;
+    display: flex;
+    position: absolute;
+    flex-flow: column;
+    direction: rtl;
+    top: 3.1rem;
+    right: 22.2rem;
+    flex-wrap: wrap;
+    background: #213a7f;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.18);
+    width: 60vw;
+    height: 35vh;
+    opacity: 0.99;
+    color: #aad6be;
+    font-weight: 700;
+    list-style: none;
+    align-items: flex-start;
+  }
+
+  .drop-down-inner-menu a {
+    display: inline;
+    color: #fff !important;
+    font-size: 1rem;
+    margin: 7px 10px;
+    padding: 0;
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: fit-content;
+    font-weight: 600;
+    border: none;
+  }
+  .drop-down-inner-menu a:hover {
+    background-color: #fff !important;
+    color: #213a7f !important;
+    font-weight: 600 !important;
+  }
+
+  .whatsapp-connect {
+    cursor: pointer;
+    width: 255px;
+    height: 35px;
+    background: #06f;
+    border-radius: 15px;
+    border: 2px solid #25d366;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.3rem;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 94vh;
+    right: 2vw;
+    text-align: center;
+    direction: rtl;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+    z-index: 9;
+  }
+  .whatsapp-connect svg {
+    height: 27px;
+    margin-left: 0.2rem;
+  }
+
   .whyus-box:hover {
     animation: closer 0.5s linear forwards;
     z-index: 1;
@@ -1231,17 +1365,24 @@ body {
   .main-QA .QA-container {
     margin: 1rem auto;
     width: 80%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .main-QA .QA-container .QA-column-container {
     display: flex;
+    flex-flow: column;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+  }
+  .main-QA .QA-container #QA-column-1 {
+    order: 2;
+  }
+  .main-QA .QA-container #QA-column-2 {
+    order: 1;
   }
   .main-QA .QA-container .QA-question-container {
-    width: 40%;
+    width: 90%;
     padding: 0 10px;
-    border: 0.5px solid #dbdbdb;
-    border-right: none;
-    border-left: none;
+    border-top: 0.5px solid #dbdbdb;
     margin: 0 2rem;
   }
   .main-QA .QA-container .QA-question-container .question {
@@ -1270,20 +1411,27 @@ body {
   }
   .main-publicQA .publicQA-containerAll {
     margin: 1rem auto 0;
+    padding-bottom: 1rem;
     width: 80%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .main-publicQA .publicQA-containerAll .publicQA-column-container {
     display: flex;
-    flex-direction: row;
+    flex-flow: column;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+  }
+  .main-publicQA .publicQA-containerAll #publicQA-column-1 {
+    order: 2;
+  }
+  .main-publicQA .publicQA-containerAll #publicQA-column-2 {
+    order: 1;
   }
   .main-publicQA .publicQA-container {
     margin: 0 2rem;
     padding: 0 10px;
-    border: 0.5px solid #dbdbdb;
-    border-right: none;
-    border-left: none;
-    width: 40%;
+    border-top: 0.5px solid #dbdbdb;
+    width: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1334,15 +1482,14 @@ body {
     background: #eff6df;
     color: #000;
     padding: 5px;
-    width: 80%;
+    width: 1100px;
   }
 
   .navigation-bar-container {
-    width: 85%;
     display: flex;
+    width: max-content;
     flex-direction: row-reverse;
     justify-content: center;
-    line-height: 3;
   }
   .navigation-bar-container .navigation-bar-item:first-of-type {
     display: none;
@@ -1380,11 +1527,15 @@ body {
     height: 75px;
     z-index: 10;
     background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .navigation-bar > a {
     display: flex;
-    margin-right: 12rem;
     align-self: flex-end;
+    width: 9.5rem;
+    vertical-align: super;
   }
   .navigation-bar > a .navigation-bar-logo-container {
     height: 80px;
@@ -1405,25 +1556,32 @@ body {
 
   .wrapper-courses {
     padding-bottom: 200px;
+    height: 650px;
+    width: 590px;
   }
 
   .wrapper-main-container {
-    width: 80%;
     display: flex;
     flex-flow: row-reverse;
     justify-content: space-evenly;
     margin: 0 auto 70px;
     max-width: 1400px;
+    width: 100vw;
   }
 
   .wrapper-contact-container {
-    display: block;
-    padding-bottom: 3.5rem;
-    background: #213b7f;
-    color: #fff;
-    margin: 8rem 8rem 0 1rem;
-    width: 38vw;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(155deg, #154b9c, #213b7f) !important;
+    min-width: 290px;
     height: 490px;
+    color: #fff;
+    margin-top: 100px;
+    margin-right: 50px;
+    position: relative;
+    left: 1vw;
   }
   .wrapper-contact-container h2 {
     text-align: start;
@@ -1513,18 +1671,22 @@ body {
 
   #howitworks-box1 {
     order: 1;
+    z-index: 4;
   }
 
   #howitworks-box2 {
     order: 2;
+    z-index: 3;
   }
 
   #howitworks-box3 {
     order: 4;
+    z-index: 2;
   }
 
   #howitworks-box4 {
     order: 3;
+    z-index: 1;
   }
 
   .triangle {
